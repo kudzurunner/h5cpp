@@ -52,6 +52,7 @@ add_dependencies(examples
 #
 
 add_subdirectory(attributes)
+add_subdirectory(hdfgroup)
 
 if (H5CPP_SWMR_ENABLED)
   add_subdirectory(swmr)
