@@ -16,6 +16,7 @@
 #include <h5cpp/hdf5.hpp>
 #include <array>
 #include <algorithm>
+#include "matrix_hdf5.hpp"
 
 #define FILE            "h5ex_d_checksum.h5"
 #define DATASET         "DS1"
@@ -24,7 +25,7 @@
 #define CHUNK0          4
 #define CHUNK1          8
 
-using buffer_type = std::array<int32_t,DIM0*DIM1>;
+using Int32Matrix = Matrix<int32_t,DIM0,DIM1>;
 
 int32_t generator()
 {
@@ -41,8 +42,9 @@ using namespace hdf5;
 
 void write_data()
 {
-    buffer_type  buffer;
-    std::generate(buffer.begin(),buffer.end(),generator);
+    Int32Matrix  matrix;
+    std::generate(matrix.begin(),matrix.end(),generator);
+    std::cout<<matrix<<std::endl;
     /*
      * Create a new file using the default properties.
      */
@@ -70,7 +72,7 @@ void write_data()
      * Create the dataset and write data to disk
      */
     node::Dataset dset(file.root(),DATASET,datatype::create<int32_t>(),space,lcpl,dcpl);
-    dset.write(buffer);
+    dset.write(matrix);
 }
 
 void read_data()
@@ -120,8 +122,9 @@ void read_data()
    /*
     * Read the data using the default properties.
     */
-   buffer_type buffer;
-   dset.read(buffer);
+   Int32Matrix matrix;
+   dset.read(matrix);
+   std::cout<<matrix<<std::endl;
 
    /*
     * Check if the read was successful.  Normally we do not perform
