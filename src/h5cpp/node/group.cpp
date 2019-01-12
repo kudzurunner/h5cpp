@@ -241,5 +241,18 @@ Dataset Group::get_dataset(const Path &path, const property::LinkAccessList &lap
   return hdf5::node::get_dataset(*this, path, lapl);
 }
 
+GroupInfo Group::info() const
+{
+  GroupInfo group_info;
+  herr_t status = H5Gget_info(static_cast<hid_t>(*this),
+                              static_cast<H5G_info_t*>(group_info));
+  if(status<0)
+  {
+    error::Singleton::instance().throw_with_stack("Failure to retrieve group information");
+  }
+
+  return group_info;
+}
+
 } // namespace node
 } // namespace hdf5

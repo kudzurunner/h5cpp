@@ -32,6 +32,19 @@ namespace hdf5 {
 namespace node {
 
 //!
+//! \brief enumeration for group storage type
+//!
+enum class StorageType : std::underlying_type<H5G_storage_type_t>::type
+{
+  UNKNOWN = H5G_STORAGE_TYPE_UNKNOWN,
+  COMPACT = H5G_STORAGE_TYPE_COMPACT,
+  DENSE = H5G_STORAGE_TYPE_DENSE,
+  SYMBOL_TABLE = H5G_STORAGE_TYPE_SYMBOL_TABLE
+};
+
+DLL_EXPORT std::ostream &operator<<(std::ostream &stream,const StorageType &storage_type);
+
+//!
 //! \brief enumeration for node type
 //!
 enum class Type : std::underlying_type<H5O_type_t>::type

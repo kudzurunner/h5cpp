@@ -29,6 +29,19 @@ namespace hdf5 {
 namespace node {
 
 
+std::ostream &operator<<(std::ostream &stream,const StorageType &storage_type)
+{
+  switch(storage_type)
+  {
+    case StorageType::UNKNOWN: return stream<<"UNKNOWN";
+    case StorageType::COMPACT: return stream<<"COMPACT";
+    case StorageType::DENSE: return stream<<"DENSE";
+    case StorageType::SYMBOL_TABLE: return stream<<"SYMBOL_TABLE";
+    default:
+      return stream;
+  }
+}
+
 std::ostream &operator<<(std::ostream &stream,const Type &type)
 {
   switch(type)

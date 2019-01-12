@@ -16,6 +16,7 @@ set(SOURCES
   ${dir}/chunked_dataset.cpp
   ${dir}/recursive_node_iterator.cpp
   ${dir}/recursive_link_iterator.cpp
+  ${dir}/group_info.cpp
   )
 
 set(HEADERS
@@ -34,6 +35,7 @@ set(HEADERS
   ${dir}/chunked_dataset.hpp
   ${dir}/recursive_node_iterator.hpp
   ${dir}/recursive_link_iterator.hpp
+  ${dir}/group_info.hpp
   )
 
 install(FILES ${HEADERS}

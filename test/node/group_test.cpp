@@ -269,5 +269,16 @@ TEST_F(GroupTest, test_group_convenience)
   EXPECT_EQ(g.get_group(Path("soft")), g1);
 }
 
+TEST_F(GroupTest,test_group_info)
+{
+  node::Group root_group = file_.root();
+  node::Group(root_group,"group_1");
+  node::Group(root_group,"group_2");
+
+  node::GroupInfo info = root_group.info();
+  EXPECT_EQ(2,info.number_of_links());
+  EXPECT_EQ(node::StorageType::COMPACT,info.storage_type());
+}
+
 
 

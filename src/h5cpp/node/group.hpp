@@ -38,6 +38,7 @@
 #include <h5cpp/property/object_copy.hpp>
 #include <h5cpp/dataspace/dataspace.hpp>
 #include <h5cpp/datatype/datatype.hpp>
+#include <h5cpp/node/group_info.hpp>
 
 
 namespace hdf5 {
@@ -386,6 +387,12 @@ class DLL_EXPORT Group : public Node
     //!
     Dataset get_dataset(const Path &path,
                         const property::LinkAccessList &lapl = property::LinkAccessList()) const;
+
+
+    //!
+    //! \brief get GroupInfo instance for this group instance
+    //!
+    GroupInfo info() const;
 
 
  private:

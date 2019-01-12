@@ -61,7 +61,10 @@ TEST(DatasetTransferList,test_data_transform)
   std::string transform_expression="x+1";
   EXPECT_NO_THROW(dxpl.data_transform(transform_expression));
   EXPECT_EQ("x+1",dxpl.data_transform());
+  EXPECT_TRUE(dxpl.has_data_transform());
 }
+
+
 
 #ifdef WITH_MPI
 
