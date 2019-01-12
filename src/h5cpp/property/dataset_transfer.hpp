@@ -51,11 +51,45 @@ std::ostream &operator<<(std::ostream &stream,const MPIChunkOption &option);
 #endif
 
 class DLL_EXPORT DatasetTransferList : public List {
+  private:
+    ssize_t data_transform_size() const;
  public:
+
   DatasetTransferList();
   ~DatasetTransferList();
 
   explicit DatasetTransferList(ObjectHandle &&handle);
+
+  //!
+  //! \brief set a data transform
+  //!
+  //! \param transform string with the transformation expression
+  //!
+  void data_transform(const std::string &transform) const;
+
+  //!
+  //! \brief set a data transform
+  //!
+  //! \param transform pointer to the transform string
+  //! \param size length of the transformation string
+  //!
+  void data_transform(const char *transform) const;
+
+  //!
+  //! \brief check if a data transform is set
+  //!
+  bool has_data_transform() const;
+
+  //!
+  //! \brief get transform expression
+  //!
+  //! Returns a string with the expression representing the data transform.
+  //! If no data transform is set on the transfer property list an empty
+  //! string is returned.
+  //!
+  //! \return string with the transformation expression
+  //!
+  std::string data_transform() const;
 
 #ifdef WITH_MPI
   void mpi_transfer_mode(MPITransferMode mode) const;

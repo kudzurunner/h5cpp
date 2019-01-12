@@ -29,6 +29,9 @@
 #include <h5cpp/property/property_class.hpp>
 #include <h5cpp/error/error.hpp>
 #include <sstream>
+#include <algorithm>
+#include <vector>
+#include <iterator>
 
 namespace hdf5 {
 namespace property {
@@ -46,6 +49,70 @@ DatasetTransferList::DatasetTransferList(ObjectHandle &&handle) :
     throw std::runtime_error(ss.str());
   }
 }
+
+void DatasetTransferList::data_transform(const std::string &transform) const
+{
+  data_transform(transform.data());
+}
+
+void DatasetTransferList::data_transform(const char *transform) const
+{
+  herr_t status = H5Pset_data_transform(static_cast<hid_t>(*this),transform);
+  if(status<0)
+  {
+    error::Singleton::instance().throw_with_stack("Failure to set data transform expression!");
+  }
+}
+
+ssize_t DatasetTransferList::data_transform_size() const
+{
+  ssize_t size = H5Pget_data_transform(static_cast<hid_t>(*this),NULL,0);
+  if(size<0)
+  {
+    error::Singleton::instance().throw_with_stack("Failure to get the size of the data transform expression!");
+  }
+
+  return size;
+}
+
+bool DatasetTransferList::has_data_transform() const
+{
+  ssize_t size = data_transform_size();
+  if(size == 0)
+  {
+    return false;
+  }
+  else if(size > 0)
+  {
+    return true;
+  }
+
+  return false;
+}
+
+std::string DatasetTransferList::data_transform() const
+{
+  if(has_data_transform())
+  {
+    std::vector<char> buffer(data_transform_size()+1);
+    herr_t status = H5Pget_data_transform(static_cast<hid_t>(*this),
+                                          buffer.data(),buffer.size()+1);
+    if(status<0)
+    {
+      error::Singleton::instance().throw_with_stack("Failure to retrieve the data transformation expression!");
+    }
+
+    std::string expression(buffer.data(),buffer.size()-1);
+
+    return expression;
+  }
+  else
+  {
+    return std::string();
+  }
+}
+
+
 
 #ifdef WITH_MPI
 

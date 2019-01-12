@@ -55,6 +55,14 @@ TEST(DatasetTransferList,test_as_default_argument)
   EXPECT_NO_THROW(test_function());
 }
 
+TEST(DatasetTransferList,test_data_transform)
+{
+  pl::DatasetTransferList dxpl;
+  std::string transform_expression="x+1";
+  EXPECT_NO_THROW(dxpl.data_transform(transform_expression));
+  EXPECT_EQ("x+1",dxpl.data_transform());
+}
+
 #ifdef WITH_MPI
 
 TEST(DatasetTransferList, flags)
