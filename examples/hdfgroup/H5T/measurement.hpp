@@ -32,12 +32,12 @@ class Measurement
 {
   private:
     int serial_no_;
-    char* location_;
+    std::string location_;
     double temperature_;
     double pressure_;
   public:
     Measurement() = default;
-    Measurement(int serial_no,const char *location,double temperature,double pressure);
+    Measurement(int serial_no,const std::string &location,double temperature,double pressure);
 
     int serial_no() const noexcept;
     std::string location() const;

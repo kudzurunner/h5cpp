@@ -35,30 +35,35 @@ namespace datatype {
 
 
 template<>
-class TypeTrait<Measurement>
-{
+  class TypeTrait<Measurement>
+  {
     private:
-    struct buffer_struct
-        {
-            int serial_no_;
-            char* location_;
-            double temperature_;
-            double pressure_;
-        };
-  public:
-    using Type = Measurement;
-    using TypeClass = Compound;
+      struct buffer_struct
+      {
+          int serial_no_;
+          std::string location_;
+          double temperature_;
+          double pressure_;
+      };
+    public:
+      using Type = Measurement;
+      using TypeClass = Compound;
 
-    static TypeClass create(const Type& = Type())
-    {
-      Compound type = Compound::create(sizeof(buffer_struct));
-      type.insert("serial_no",HOFFSET(buffer_struct,serial_no_),datatype::create<int>());
-      type.insert("location",HOFFSET(buffer_struct,location_),datatype::create<std::string>());
-      type.insert("temperature",HOFFSET(buffer_struct,temperature_),datatype::create<double>());
-      type.insert("pressure",HOFFSET(buffer_struct,pressure_),datatype::create<double>());
+      static TypeClass
+      create (const Type& = Type ())
+      {
+        Compound type = Compound::create (sizeof(buffer_struct));
+        type.insert ("serial_no", HOFFSET(buffer_struct, serial_no_),
+                     datatype::create<int> ());
+        type.insert ("location", HOFFSET(buffer_struct, location_),
+                     datatype::create<std::string> ());
+        type.insert ("temperature", HOFFSET(buffer_struct, temperature_),
+                     datatype::create<double> ());
+        type.insert ("pressure", HOFFSET(buffer_struct, pressure_),
+                     datatype::create<double> ());
 
-      return type;
-    }
+        return type;
+      }
 };
 
 } // end of namespace datatype

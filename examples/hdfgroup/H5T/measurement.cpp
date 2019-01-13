@@ -25,10 +25,12 @@
 
 #include "measurement.hpp"
 
-Measurement::Measurement (int serial_no, const char *location,
+Measurement::Measurement (int serial_no, const std::string &location,
                           double temperature, double pressure) :
-    serial_no_ (serial_no), location_ (const_cast<char*>(location)), temperature_ (temperature), pressure_ (
-        pressure)
+    serial_no_ (serial_no),
+    location_ (location),
+    temperature_ (temperature),
+    pressure_ ( pressure)
 {
 }
 
